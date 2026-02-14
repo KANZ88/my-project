@@ -25,6 +25,9 @@ last_position_print = 0
 # متغير لتتبع حالة HP السابقة (لتجنب طباعة التحذير بشكل متكرر)
 last_hp_warning = False
 
+# رسالة الرد التلقائي على الرسائل الخاصة
+AUTO_REPLY_MESSAGE = "Hello"
+
 # ====================================================================================================
 # دالة event_loop - تُستدعى بشكل متكرر كل ~500 ميلي ثانية
 # ====================================================================================================
@@ -172,11 +175,11 @@ def handle_chat(message_type, player_name, message):
     if message_type == 2:
         log(f"📨 استقبلت رسالة خاصة من {player_name}: {message}")
         
-        # إرسال رد تلقائي "Hello" للمرسل
+        # إرسال رد تلقائي للمرسل (يمكن تغيير الرسالة من المتغير AUTO_REPLY_MESSAGE)
         # نستخدم دالة phBot لإرسال رسالة خاصة
-        phBot.chat(f"/pm {player_name} Hello")
+        phBot.chat(f"/pm {player_name} {AUTO_REPLY_MESSAGE}")
         
-        log(f"✉️ تم إرسال رد تلقائي 'Hello' إلى {player_name}")
+        log(f"✉️ تم إرسال رد تلقائي '{AUTO_REPLY_MESSAGE}' إلى {player_name}")
 
 
 # ====================================================================================================
@@ -195,7 +198,7 @@ def get_character_data():
         # محاولة الحصول على بيانات الشخصية من phBot API
         character = get_character()
         return character
-    except:
+    except Exception:
         # في حالة حدوث خطأ، نرجع None
         return None
 
@@ -219,7 +222,7 @@ def get_position():
                 'region': character.get('region', 0)
             }
             return position_data
-    except:
+    except Exception:
         pass
     
     return None
