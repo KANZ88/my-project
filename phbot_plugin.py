@@ -64,7 +64,7 @@ def handle_event(event_type, data):
     elif event_type == 4:
         log("Plugin: Character spawned")
     elif event_type == 5:
-        log("Plugin: Character died")
+        log("Character has died! Respawning...")
 
 
 # ====================================================================================================
