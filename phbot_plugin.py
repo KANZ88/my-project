@@ -6,12 +6,18 @@ This is a base structure for creating phBot plugins
 import phBot
 from phBot import *
 
+# phBot API functions used in this plugin (imported via wildcard import above):
+# - log(message): Logs messages to the bot console
+# - get_character_data(): Returns dictionary with character information (HP, MP, etc.)
+
 # ====================================================================================================
 # Plugin Information (Required)
 # ====================================================================================================
 
 pName = "MyPlugin"  # Plugin name that will be displayed in the bot
 pVersion = "1.0.0"  # Plugin version
+# WARNING: Generate a unique GUID for your plugin! Use an online GUID generator.
+# Never use this default GUID in production - it MUST be unique for each plugin.
 pGuid = "00000000-0000-0000-0000-000000000000"  # Unique identifier (generate a new GUID for your plugin)
 
 
@@ -181,7 +187,13 @@ def handle_joymax_message(opcode, data):
 
 # This code runs when the plugin is loaded
 log_to_console(f"Plugin loaded successfully - Version {pVersion}")
-log_to_console("Plugin is ready to use")
+
+# Validate that the GUID has been changed from the default template value
+if pGuid == "00000000-0000-0000-0000-000000000000":
+    log_to_console("WARNING: You are using the default GUID!")
+    log_to_console("WARNING: Please generate a unique GUID for your plugin to avoid conflicts!")
+else:
+    log_to_console("Plugin is ready to use")
 
 # ====================================================================================================
 # Usage Examples and Notes
